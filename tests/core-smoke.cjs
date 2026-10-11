@@ -1,0 +1,12 @@
+const fs=require('fs'),path=require('path'),assert=require('assert');
+const C=require('../android/assets/core.js');
+const demo=C.decode(fs.readFileSync(path.join(__dirname,'../android/assets/demo.json'),'utf8'));
+assert(demo.Demo&&demo.Uid.startsWith('DEMO'));
+assert.equal(demo.Battles.length,32);
+for(const mode of C.modes)assert.equal(C.rows(demo,mode).length,8);
+assert.equal(C.mates(demo,0).reduce((n,t)=>n+t.Games,0),16);
+assert.equal(C.opponents(demo,0).reduce((n,t)=>n+t.Games,0),48);
+assert(C.rows(demo,21).every(b=>b.ScoreAfter==null));
+assert(!C.csv(demo,'mates',true).includes('UID'));
+assert(C.scoreSeries(demo,22).length>0);
+console.log('PASS synthetic JavaScript fixture, four modes, teammate/opponent counts, matching scores, CSV privacy and score series.');

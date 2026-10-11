@@ -1,0 +1,1 @@
+<inset xmlns:android="http://schemas.android.com/apk/res/android" android:inset="18%"><bitmap android:src="@drawable/icon_art" android:gravity="fill"/></inset>
